@@ -1,0 +1,57 @@
+SQL DDL commands for PS3:
+===================================================================
+
+/* Creating my_stocks Table */
+
+create table my_stocks (
+	symbol	varchar(20) not null,
+	n_shares integer not null,
+	date_acquired date not null
+);
+
+===================================================================
+
+/*Creating test data for my_stocks */
+
+GOGL    1234    01/01/2020
+NIFTY   2345    04/05/2020
+TSLA    3456    09/12/2019
+SPSX    4567    01/08/2020
+BLOR    5678    01/12/2019
+NASA    9876    02/09/2020
+
+
+===================================================================
+
+/* Creating stock_prices Table */
+
+create table stock_prices as
+    select symbol, current_date as quote_date ,30 as price
+    from my_stocks;
+
+===================================================================
+	
+/* Creating newly_acquired_stocks Table */
+
+create table newly_acquired_stocks (
+    symbol varchar(20) not null,
+    n_shares integer not null,
+    date_acquired date not null
+);
+
+
+===================================================================
+
+/* ascii_sum function */
+
+CREATE OR REPLACE FUNCTION ascii_sum (sym TEXT)
+RETURNS integer AS $sum$
+declare
+sum integer;
+BEGIN
+	select sum(ascii(regexp_split_to_table)) from regexp_split_to_table(sym, '') into sum;
+	RETURN sum;
+END;
+$sum$ LANGUAGE plpgsql;
+
+===================================================================

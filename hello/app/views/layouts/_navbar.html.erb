@@ -1,0 +1,141 @@
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+
+    <a class="navbar-item" href="/">
+      Web 3
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+
+    <div class="navbar-start">
+      <a class="navbar-item" href="/">
+        <span class="icon">
+          <i class="fas fa-home"></i>
+        </span>
+        Home
+      </a>
+
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          PS 1
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/ps1_zerodiv">
+            Zero Division
+          </a>
+          <a class="navbar-item" href="/ps1_scrape">
+            Scraping
+          </a>
+        </div>
+      </div>
+
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          PS 2
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/quotations">
+            Quotations
+          </a>
+          <a class="navbar-item" href="/ps2_solutions">
+          Solutions
+          </a>
+          <a class="navbar-item" href="/ps2_ddl.txt">
+            SQL Resource
+          </a>
+        </div>
+      </div>
+
+
+      <a class="navbar-item" href="/ps3">
+        PS 3
+      </a>
+
+      <a class="navbar-item" href="/ps4">
+        PS 4
+      </a>
+
+      <a class="navbar-item" href="/ps5">
+        PS 5
+      </a>
+
+      <a class="navbar-item" href="/ps6">
+        PS 6
+      </a>
+
+
+
+
+
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+      <div class="navbar-end">
+        <% if user_signed_in? %>
+
+          <% if current_user.is_admin? %>
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-warning" href="<%= admin_panel_path %>"><strong>Admin Panel</strong></a>
+              </div>
+            </div>
+          <% end %>
+
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <div class="buttons">
+              <a class="button is-info" href="#"><strong>New</strong></a>
+              <div class="navbar-dropdown">
+                <div class="buttons">
+                  <a class="button is-info is-light" href="<%= new_project_path %>"><strong>Project</strong></a>
+                  <a class="button is-info is-light" href="<%= new_team_path %>"><strong>Team</strong></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <div class="buttons">
+              <a class="button is-primary" href="#"><strong>Account</strong></a>
+              <div class="navbar-dropdown">
+                <div class="buttons">
+                  <a class="button is-primary is-light" href="<%= edit_user_registration_path %>">
+                    <strong>Edit Account</strong>
+                  </a>
+                  <a class="button is-danger is-light" formmethod="delete" onclick="location.href='<%= destroy_user_session_path %>'">
+                    <strong>Log Out</strong>
+                  </a>
+                  <%#= link_to "Log Out", destroy_user_session_path, method: :delete, class:"navbar-item" %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% else %>
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-danger" href="<%= new_user_registration_path %>"><strong>Sign Up</strong></a>
+                <a class="button is-primary" href="<%= new_user_session_path %>"><strong>Sign In</strong></a>
+              </div>
+            </div>
+
+            </div>
+          <% end %>
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+</nav>

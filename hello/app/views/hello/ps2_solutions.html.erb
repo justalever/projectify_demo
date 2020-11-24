@@ -1,0 +1,373 @@
+<style>
+pre { 
+    white-space: pre-wrap; 
+    word-break: break-word;
+}
+
+</style>
+
+<a href="http://web3.cs.ait.ac.th/sql_files/ps2_ddl.txt"><b>SQL DDL (Text file transcript)</b></a>
+</br>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Task</th>
+      <th scope="col">Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <th scope="row">1</th>
+      <td><pre>Quotations</pre></td>
+      <td><pre>Created a database and added a few quotes. 
+By default, Active Record will use an integer column named id as the table's primary key (bigint for PostgreSQL and MySQL, integer for SQLite). When using Active Record Migrations to create your tables, this column will be automatically created.
+
+References: <a href="https://edgeguides.rubyonrails.org/active_record_basics.html">Rails Active Record Basics</a>
+</pre></td>
+    </tr>
+
+    <tr>
+      <th scope="row">2</th>
+
+      <td><pre>Select Box for existing categories and Text Filed for new categories</pre></td>
+      
+      <td><pre>The Rails ORM has a distinct function to select distinct categories which were used to retrieve for the Select Box.
+If a new category is inputted in the text field, it is added to the database. Else, the category chosen in the Select Box is chosen.</pre> </td>
+    </tr>
+
+    <tr>
+      <th scope="row">3</th>
+
+      <td><pre>Search Box</pre></td>
+      
+      <td><pre>Search Box was created by using a form which submits the query term to a function "search". The search function has an SQL query that retrieves all data that contains the term in existing authors, quotes or categories.
+</pre></td>
+    </tr>
+
+
+    <tr>
+      <th scope="row">4</th>
+
+      <td><pre>Kill / Delete</pre></td>
+      
+      <td><pre>A Kill switch was created for each quote which maps to the ID of the quote. When the "Delete" button is clicked, the ID of the quote deleted is stored in a cookie array. All the queries except those with IDs stored in the cookie are displayed. Personalization is restored even if the browser is restarted by using the cookie.permanent method.
+</pre></td>
+    </tr>
+
+
+    <tr>
+      <th scope="row">5</th>
+
+      <td><pre>Exporting to XML/JSON format</pre></td>
+      
+      <td><pre>Using format method, both JSON and XML were rendered. For the XML to be hash resolved, JSON format was converted to XML.
+</pre></td>
+    </tr>
+
+
+    <tr>
+      <th scope="row">6</th>
+
+      <td><pre>Importing the data</pre></td>
+      
+      <td><pre>A form to input the URL was provided and Nokogiri's css selector was used to grab the nodes that belong to the database.
+</pre></td>
+    </tr>
+
+
+    <tr>
+      <th scope="row">7</th>
+
+      <td><pre>Loading data to database using text files</pre></td>
+      
+      <td><pre>$ cat mystocks.sql
+create table my_stocks (
+symbol varchar(20) not null,
+n_shares integer not null,
+date_acquired date not null
+);
+
+Input redirecting the file to psql DB
+
+$ psql ps2 < mystocks.sql
+
+Loading data into the table:
+
+ps2=# copy my_stocks from '/home/deploy/hello/current/sql_files/data.txt' delimiter E',' NULL AS '\null';
+
+ps2=# select * from my_stocks ;
+ symbol | n_shares | date_acquired 
+--------+----------+---------------
+ GOGL   |     1234 | 2020-01-01
+ NIFTY  |     2345 | 2020-05-04
+ TSLA   |     3456 | 2019-12-09
+ SPSX   |     4567 | 2020-08-01
+ BLOR   |     5678 | 2019-12-01
+ NASA   |     9876 | 2020-09-02
+(6 rows)
+</pre></td>
+    </tr>
+
+
+    <tr>
+      <th scope="row">8</th>
+
+      <td><pre>Copying data from one table to another</pre></td>
+      
+      <td><pre>ps2=# create table stock_prices as
+ps2-# select symbol, current_date as quote_date ,30 as price
+ps2-# from my_stocks;
+SELECT 6
+
+
+ps2=# select * from stock_prices;
+
+ symbol | quote_date | price 
+--------+------------+-------
+ GOGL   | 2020-09-22 |    30
+ NIFTY  | 2020-09-22 |    30
+ TSLA   | 2020-09-22 |    30
+ SPSX   | 2020-09-22 |    30
+ BLOR   | 2020-09-22 |    30
+ NASA   | 2020-09-22 |    30
+(6 rows)
+
+
+$ psql ps2 < newly_acquired.sql 
+CREATE TABLE
+
+ps2=# insert into newly_acquired_stocks (symbol, n_shares, date_acquired) select symbol, n_shares, date_acquired from my_stocks limit 3;
+INSERT 0 3
+ps2=# select * from newly_acquired_stocks;
+ symbol | n_shares | date_acquired 
+--------+----------+---------------
+ GOGL   |     1234 | 2020-01-01
+ NIFTY  |     2345 | 2020-05-04
+ TSLA   |     3456 | 2019-12-09
+(3 rows)
+</pre></td>
+    </tr>
+
+
+    <tr>
+      <th scope="row">9</th>
+
+      <td><pre>JOIN</pre></td>
+      
+      <td><pre>ps2=# select my_stocks.symbol, my_stocks.n_shares, stock_prices.price, my_stocks.n_shares*stock_prices.price as value from my_stocks join stock_prices on stock_prices.symbol= my_stocks.symbol;
+
+ symbol | n_shares | price | value  
+--------+----------+-------+--------
+ GOGL   |     1234 |    30 |  37020
+ NIFTY  |     2345 |    30 |  70350
+ TSLA   |     3456 |    30 | 103680
+ SPSX   |     4567 |    30 | 137010
+ BLOR   |     5678 |    30 | 170340
+ NASA   |     9876 |    30 | 296280
+(6 rows)
+
+</pre></td>
+    </tr>
+
+
+    <tr>
+      <th scope="row">10</th>
+
+      <td><pre>OUTER JOIN</pre></td>
+      
+      <td><pre>Inserting a new record into my_stocks table using INSERT:
+
+ps2=# insert into my_stocks (symbol, n_shares, date_acquired)
+ps2-# values('BTC', 1000, '03/05/2020');
+INSERT 0 1
+
+
+Joining the stock_prices and my_stocks table using symbol column
+
+ps2=# select my_stocks.symbol, my_stocks.n_shares, stock_prices.price, my_stocks.n_shares*stock_prices.price as value from my_stocks join stock_prices on stock_prices.symbol= my_stocks.symbol;
+ symbol | n_shares | price | value  
+--------+----------+-------+--------
+ GOGL   |     1234 |    30 |  37020
+ NIFTY  |     2345 |    30 |  70350
+ TSLA   |     3456 |    30 | 103680
+ SPSX   |     4567 |    30 | 137010
+ BLOR   |     5678 |    30 | 170340
+ NASA   |     9876 |    30 | 296280
+(6 rows)
+
+The new record "BTC" inserted is not shown.
+
+Using the FULL JOIN to show all the stocks
+
+ps2=# select my_stocks.symbol, my_stocks.n_shares, stock_prices.price, my_stocks.n_shares*stock_prices.price as value
+ps2-# from my_stocks
+ps2-# full join stock_prices on stock_prices.symbol= my_stocks.symbol;
+ symbol | n_shares | price | value  
+--------+----------+-------+--------
+ GOGL   |     1234 |    30 |  37020
+ NIFTY  |     2345 |    30 |  70350
+ TSLA   |     3456 |    30 | 103680
+ SPSX   |     4567 |    30 | 137010
+ BLOR   |     5678 |    30 | 170340
+ NASA   |     9876 |    30 | 296280
+ BTC    |     1000 |       |       
+(7 rows)
+</pre></td>
+    </tr>
+
+
+    <tr>
+      <th scope="row">11</th>
+
+      <td><pre>PL/SQL:</pre></td>
+      
+      <td><pre>/* ascii_sum function */
+
+CREATE OR REPLACE FUNCTION ascii_sum (sym TEXT)
+RETURNS integer AS $sum$
+declare
+sum integer;
+BEGIN
+  select sum(ascii(regexp_split_to_table)) from regexp_split_to_table(sym, '') into sum;
+  RETURN sum;
+END;
+$sum$ LANGUAGE plpgsql;
+
+Updating all stock prices using ascii_sum function. (Adding ascii value of characters in Symbol)
+
+ps2=# UPDATE stock_prices
+SET price = ascii_sum (symbol);
+UPDATE 6
+
+ps2=# select * from stock_prices ;
+ symbol | quote_date | price 
+--------+------------+-------
+ GOGL   | 2020-09-22 |   297
+ NIFTY  | 2020-09-22 |   394
+ TSLA   | 2020-09-22 |   308
+ SPSX   | 2020-09-22 |   334
+ BLOR   | 2020-09-22 |   303
+ NASA   | 2020-09-22 |   291
+(6 rows)
+</pre></td>
+    </tr>
+
+
+    <tr>
+      <th scope="row">12</th>
+
+      <td><pre>Buy More of Winners</pre></td>
+      
+      <td><pre>Average price of holdings:
+
+ps2=# select avg(price) from stock_prices;
+         avg          
+----------------------
+ 321.1666666666666667
+ 
+Doubling holdings greater than average price
+
+ps2=# insert into my_stocks (symbol, n_shares, date_acquired)
+select m.symbol, m.n_shares, current_date from my_stocks as m
+where m.symbol in (select s.symbol from stock_prices as s where s.price > 321.16);
+INSERT 0 2
+
+
+ps2=# select * from my_stocks;
+ symbol | n_shares | date_acquired 
+--------+----------+---------------
+ GOGL   |     1234 | 2020-01-01
+ NIFTY  |     2345 | 2020-05-04
+ TSLA   |     3456 | 2019-12-09
+ SPSX   |     4567 | 2020-08-01
+ BLOR   |     5678 | 2019-12-01
+ NASA   |     9876 | 2020-09-02
+ BTC    |     1000 | 2020-05-03
+ NIFTY  |     2345 | 2020-09-22
+ SPSX   |     4567 | 2020-09-22
+(9 rows)
+
+
+Outer join: 
+
+ps2=# select m.symbol, m.n_shares, price from my_stocks m FULL JOIN stock_prices s on m.symbol = s.symbol;
+ symbol | n_shares | price 
+--------+----------+-------
+ GOGL   |     1234 |   297
+ NIFTY  |     2345 |   394
+ TSLA   |     3456 |   308
+ SPSX   |     4567 |   334
+ BLOR   |     5678 |   303
+ NASA   |     9876 |   291
+ BTC    |     1000 |      
+ NIFTY  |     2345 |   394
+ SPSX   |     4567 |   334
+(9 rows)
+
+Total Share Holding:
+
+ps2=# select symbol, sum(n_shares) as total_no_shares from my_stocks group by symbol;
+ symbol | total_no_shares 
+--------+-----------------
+ NASA   |            9876
+ SPSX   |            9134
+ BTC    |            1000
+ NIFTY  |            4690
+ GOGL   |            1234
+ BLOR   |            5678
+ TSLA   |            3456
+(7 rows)
+
+Total value of holdings:
+
+ps2=# select m.symbol, sum(m.n_shares*s.price) as value from my_stocks m
+ps2-# inner join stock_prices s on m.symbol = s.symbol group by m.symbol;
+ symbol |  value  
+--------+---------
+ BLOR   | 1720434
+ GOGL   |  366498
+ NASA   | 2873916
+ NIFTY  | 1847860
+ SPSX   | 3050756
+ TSLA   | 1064448
+(6 rows)
+
+Total Shares of Winners and their value:
+
+ps2=# select m.symbol, sum(m.n_shares) as total_shares, sum(m.n_shares * s.price) as value from my_stocks m
+ps2-# inner join stock_prices s on m.symbol = s.symbol group by m.symbol having count(*) >=2
+ps2-# ;
+ symbol | total_shares |  value  
+--------+--------------+---------
+ NIFTY  |         4690 | 1847860
+ SPSX   |         9134 | 3050756
+(2 rows)</pre></td>
+    </tr>
+
+
+    <tr>
+      <th scope="row">13</th>
+
+      <td><pre>Encapsulating queries with a view:</pre></td>
+      
+      <td>
+        <pre>ps2=# create view stocks_i_like as select m.symbol, sum(m.n_shares) as
+ps2-# total_shares, sum(n_shares*s.price) as total_value from my_stocks m
+ps2-# inner join stock_prices s on m.symbol = s.symbol group by m.symbol having count(*) >=2;
+CREATE VIEW
+        </pre>
+      </td>
+    </tr>
+
+
+    
+
+
+
+
+
+    
+  </tbody>
+</table>

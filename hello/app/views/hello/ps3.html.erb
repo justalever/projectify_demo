@@ -1,0 +1,358 @@
+<head>
+  <style>
+      .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          max-width: 300px;
+          margin: auto;
+          text-align: center;
+          font-family: arial;
+      }
+
+      .title {
+          color: grey;
+          font-size: 18px;
+      }
+
+      button {
+          border: none;
+          outline: 0;
+          display: inline-block;
+          padding: 8px;
+          color: white;
+          background-color: #000;
+          text-align: center;
+          cursor: pointer;
+          width: 100%;
+          font-size: 18px;
+      }
+
+      a {
+          text-decoration: none;
+          font-size: 22px;
+          color: black;
+      }
+
+      button:hover, a:hover {
+          opacity: 0.7;
+      }
+  </style>
+</head>
+<div class="alert alert-primary" role="alert">
+  <b>1. What will people be able learn about in the community that you’re building? Alternatively, if you
+    are automating some collaborative workflow, what work will people accomplish with your system?</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  We aim to build a platform which allows people to efficiently manage their projects. Users can accomplish time efficiency and smooth management among teams working on different projects.
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+  <b>2. What do you want people to say about your service after a visit?</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <ul>
+    <li>A platform that allows to manage as well as track progress to improve team efficiency</li>
+    <li>A service that provides a forum to build community in the same domain. (Github and Stack Overflow combined)</li>
+    <li>Time tracking feature for every task helps with deadlines</li>
+    <li>Simple interface that is user friendly.</li>
+  </ul>
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+  <b>3. What are the relevant distinct user classes?</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <ul>
+    <li>Users/Team Members: Members of a team or individual accounts that don't belong to any team.</li>
+    <li>Admins: Admins are users who create a team and manage the team members.</li>
+  </ul>
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+  <b>4. What should a user on a smartphone be able to do?</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  A user on a smartphone should be able to use the site to perform all the actions on a computer.
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+  <b> Build two or three profiles for users of your application. A profile page contains the following information:
+    <li>(a) a picture of the user</li>
+    <li>(b) the user’s name, age, occupation, marital status, housing situation, and income</li>
+    <li>(c) the user’s short-term and long-term goals relevant to the online community that you’re building</li>
+    <li>(d) the immediate questions that this user will bring to the site</li>
+    <li>(e) the kind of computer equipment and connection in this person’s house</li>
+    <li>(f) any other information that will help to humanize this fictitious person.</li>
+  </b>
+</div>
+
+<div class="alert alert-success" role="alert">
+
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="card">
+  <img src="https://pbs.twimg.com/profile_images/779737950129000448/HU90OZO1_400x400.jpg" alt="Profile" style="width:100%">
+  <h1>Thoviti Siddharth</h1>
+  <p>@haxothermic</p>
+  <p class="title">Security Engineer @ SoonToEstablishCompany</p>
+  <p>Asian Institute of Technology</p>
+  <div style="margin: 24px 0;">
+    <a href="https://twitter.com/haxothermic"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+    <a href="#"><i class="fa fa-facebook"></i></a>
+  </div>
+
+  <p><b>Projects:</b></p>
+  <ul>
+    <li>fuzzm3: Custom fuzzer to find bugs.</li>
+    <li>Anti-FUD: Detecting FUDs using ML.</li></ul>
+  <p><button>Message</button></p>
+
+  <table class="table table-bordered table-dark">
+    <tbody>
+    <tr>
+      <td>Age</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>Marital Status</td>
+      <td>Unmarried</td>
+    </tr>
+    <tr>
+      <td>Housing</td>
+      <td>India</td>
+    </tr>
+    <tr>
+      <td>Inccome</td>
+      <td>Grade 'A' pay</td>
+    </tr>
+    <tr>
+      <td>Short-term Goals</td>
+      <td>Building a Project Management App.</td>
+    </tr>
+    <tr>
+      <td>Long-Term Goals</td>
+      <td>Researching the use of AI/ML in cyber security.</td>
+    </tr>
+    <tr>
+      <td>Computer Equipment and Connection at home</td>
+      <td>Gaming workstation with 300 Mbps internet speed.</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div class="alert alert-primary" role="alert">
+  For each class of user identified in Exercise 1a, produce a textual or graphical usage scenario for how
+  that user will experience your service.
+</div>
+
+
+<div class="alert alert-success" role="alert">
+
+<section class="section pt3">
+  <p class="title is-5 border-bottom pb3 has-text-centered">Welcome Thoviti Siddharth! 👋🏻</p>
+  <div class="columns">
+
+    <div class="column border-right ph4">
+      <div class="level">
+        <div>Seconds: <span id="time">0</span></div>
+        <input type="button" id="startTimer" value="Start Timer" onclick="start();"><br/>
+        <input type="button" id="stopTimer" value="Stop Timer"  onclick="stop();"><br/>
+        <input type="button" id="resetTimer" value="Reset Timer"  onclick="reset();"><br/>
+        <script>
+            var timeElapsed = 0;
+            var timerID = -1;
+            function tick() {
+                timeElapsed++
+                document.getElementById("time").innerHTML = timeElapsed;
+            }
+
+            function start() {
+                if(timerID == -1){
+                    timerID = setInterval(tick, 1000);
+                }
+            }
+
+            function stop() {
+                if(timerID != -1){
+                    clearInterval(timerID)
+                    timerID = -1
+                }
+            }
+
+            function reset() {
+                stop();
+                timeElapsed = -1;
+                tick()
+            }
+        </script>
+        <div class="level-left">
+          <h3 class="subtitle is-5">My Projects <span class="tag is-rounded">(1)</span></h3>
+        </div>
+        <div class="level-right">
+          <p class="field">
+              <span class="icon is-small has-text-link"><i class="fa fa-plus"></i></span>
+          </p>
+        </div>
+      </div>
+      <hr />
+        <div class="content border-bottom pb4">
+          <p class="title is-4">
+            fuzzm3
+          </p>
+          <p class="subtitle is-6">
+            Team W3b03
+          </p>
+          <p class="f6">Created by: Thoviti Siddharth</p>
+        </div>
+
+
+    </div>
+    <div class="column border-right ph4">
+      <div class="level">
+        <div class="level-left">
+          <h3 class="subtitle is-5">My Teams <span class="tag is-rounded">(1)</span></h3>
+        </div>
+        <div class="level-right">
+          <p class="field">
+              <span class="icon is-small has-text-link"><i class="fa fa-plus"></i></span>
+          </p>
+        </div>
+      </div>
+      <hr />
+        <div class="content border-bottom pb4">
+          <p class="title is-4">
+            W3b03
+          </p>
+          <p class="subtitle is-6">2 Members</p>
+          <span class="f6">Thoviti Siddharth, Shrabin</span>
+        </div>
+
+    </div>
+
+    <div class="column ph4">
+      <h3 class="subtitle is-5">Activity</h3>
+      <hr />
+      <ul class="list">
+        <li>created team W3b04</li>
+        <li>removed a project</li>
+        <li>added a Shrabin as Team member</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<div class="alert alert-primary" role="alert">
+  <b> Evaluate offline alternatives. You ought to have a good reason for building an information system.
+    You need a convincing answer for why we need this system rather than a book, a pencil, and paper.
+    Explain the available alternatives and explain the best features of these alternatives. Justify why your
+    system is necessary</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  The offline alternatives to developing a project are rarely seen nowadays. Techniques like timing a programming session manually uing stop watch and using phone to communicate with teammates is rather too old now.
+  Assigning tasks and managing a project offline is tough especially with regards to communication with teammates and individual workflow productivity.
+  Therefore, to overcome these problems, an online platform to manage the project and it's team and using online timers and schedules to track progress and activity is a better alternative.
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Evaluate online alternatives. Find the best existing online communities in your subject area. Note how
+    closely they conform to the six elements of sustainability (magnet content, collaboration, searching and
+    browsing capabilities, delegated moderation, means of removing bozos, and means for extending the
+    community. Also write down anything strikingly good or bad about the registration process and the
+    mechanisms of collaboration, e.g., in discussion forums, comments on articles, and chat rooms. Look
+    for voice and mobile interfaces. If present, try them out. Look for evidence of personalization and
+    direct controls over preferences.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  The best existing online alternatives to project management are Github, Gitlab, Kanbanchi.
+  These platforms are well known and have a good user base. They closely conform to the six elements of sustainability.
+  The magnet content for the platforms describe the implementation of best practices of project management and attract users with the key element of productivity.
+  These platforms also let users collaborate on the projects they are a part of.
+  Searching and browsing capabilities are standard which provide filters to sort by date, name, etc.
+  Although Kanbanchi does not have a delegated moderation as it considers a project team work, Github and Gitlab provide users with authority over some actions.
+  Although Github and Gitlab feature a place to raise issues related to the project, the means of extending the community is limited.
+  Personalization is also very limited in these platforms.
+</div>
+
+<div class="alert alert-primary" role="alert">
+  <b>Identify where the magnet content for your system is going to come from.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  As the user base increases, we hope to see the community spread the word about the platform for the features it provides.
+</div>
+
+<div class="alert alert-primary" role="alert">
+  <b>Decide on hostname and figure out DNS registration procedures. Be sure to look into the options for
+    hosting of your web site. Ideally, you should all have a real hostname for your system, pointing to your
+    CSIM server, by the end of the semester. At the end of the semester, you should also be ready to place
+    your site at a more permanent home. Please include a plan for how you will do this. Note that AIT,
+    CSIM, or AIT SU could probably be pursuaded to host some of your groups’ sites. Others would be
+    more appropriately hosted offsite.
+  </b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  The hostname for the platform is likely to be "projectify.dev". The DNS registration is planned to be done through "onlydomains.com". To host the site, we may use AWS cloud.
+</div>
+
+<div class="alert alert-primary" role="alert">
+  <b>Describe the intellectual property rights of yourselves as developers, authors as contributors, and so
+    on</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  The developers/authors of the website are only entitled to use the design and trademark.
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Set up nightly dumps of your database using cron or equivalent.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  Using Cron, we can dump the database by adding the following line in the crontab.
+  <pre>
+    <code>
+      0 0 * * * pg_dump -U postgres projectify > ~/postgres/backups/projectify.bak | tar -czvf ~/postgres/backups/projectify.tar.gz
+    </code>
+  </pre>
+</div>
+
+<div class="alert alert-primary" role="alert">
+  <b> Set up a continuous integration system for your team’s development work. Jenkins is recommended.
+    However, you may use any continuous integration solution you like as long as the essential features are
+    implemented. You should have a regression test suite and at least a code coverage metric.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  Jenkins will be used for continuous integration system.
+</div>
+
+<div class="alert alert-primary" role="alert">
+  <b> Set up Capistrano or equivalent to enable repeatable, one-command deployment to production.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <a href = "https://cis.ait.ac.th/course_offerings/9/capistrano-companion">Capistrano Companion</a> provided by Professor Matthew N. Dailey
+</div>
+
+
+
+

@@ -1,0 +1,128 @@
+<div class="alert alert-primary" role="alert">
+  <b> Think about how to classify each of the types of content on your site. Articles, comments on articles, news items, questions and answers, documents to be approved or rejected with comments, and so on. Each type of content will require a different flavor of data model and moderation/approval/versioning process.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    Projects, Teams and Activities are the core of the project.<br>
+    All these will be shown in the website's homepage as overview after logging in.<br>
+    Projects and Teams have a dedicated page with detailed description about the projects and teams<br>
+    Each of them will be displaying the following content:
+    </br>
+    <b><u>Projects:</u></b>
+    <li>Title</li>
+    <li>Date Created</li>
+    <li>Project Owner</li>
+    <li>Last Modification</li>
+    <li>Description</li>
+
+    <br>
+    <b><u>Teams:</u></b>
+    <li>Team Names</li>
+    <li>Number of Teams</li>
+    <li>Number of team members in a team</li>
+    <li>Team Members of a team</li>
+
+    <b><u>Activity</u></b>
+    <li>All updates about projects, teams and changes made.</li>
+  </span>
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Design your content data model and discuss the implications of your design choices with potential users of the system. In general, there should be at least one category of user-submitted content with authoring workflow specific to your project and at least one question and answer forum. However, the specifics will be very dependent on your project’s requirements. Document the design and your discussions on your site.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    The potential users of the system are students, employees of an organization and anyone who wants to manage a project.<br>
+    <b><u>Project owner</u></b>
+    <li>Can create a project</li>
+    <li>Edit project description</li>
+    <li>Can add/invite team members</li>
+    <li>Edit team members</li>
+
+    <br>
+
+    <b><u>Team Member:</u></b>
+    <li>Can edit project</li>
+    <li>Time their work/Track progress</li>
+
+    <b><u>Admin:</u></b>
+    <li>Can Ban/Activate users</li>
+    <li>Can view user statistics</li>
+    <li>Can download database dump</li>
+
+    <b>The model is defined as follows:</b>
+    <li>A <b>User</b> can have <u>MANY</u> <b>Projects</b></li>
+    <li>A <b>User</b> can have <b>MANY</b> <b>Teams</b></li>
+    <li>A <b>Team</b> lives within a <b>Project</b>, therefore is <u>dependent</u> on <b>Project</b>.</li>
+    <li>A <b>Team</b> can have <u>MANY</u> <b>Users</b></li>
+    <li>A <b>Project</b> <u>belongs</u> to a <b>Team</b></li>
+    <li>A <b>Project</b> <u>belongs</u> to a <b>User</b> when created</li>
+  </span>
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Specify the workflow for each kind of content on your site and discuss the implications of your design
+    choices with potential users of the sytem. Document the workflow design and your discussions on your
+    site</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    When a user logs into the website, he can see a dashboard giving an overview of all the project and teams they are part of.
+    There is an activity tab that displays all the recent activity log by all users of the team or projects he is associated with.
+    A team or project can be created after clicking on the "+" sign on the respective tabs.
+    It has a simple design and flow that allows users to get use the platform efficiently.
+    <br>
+    The target audience for this platform would be students, project teams, and anyone who would like to manage their projects.
+  </span>
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Design your versioning system. What is the versioning system for each type of content? Do you need a complete history of every version, or just a current version with the author of the last version? Make sure you think carefully about the needs of the user community. Document the versioning design on your site.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    Git handles the version control system for the website. The project's current head and previous source code can be found in the Git repository.
+
+    Since there is only one person working on this project,
+    it does not require a complete history of every version. A current version with along with the last version is enough.
+
+    If the number of people managing this project increase then it would be worth contemplating a complete history of every version.
+  </span>
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Write UATs for a “skeletal” implmentation of the workflow for at least one type of content on your site then get the UATs to pass. Users should be able to get something up on your server and see it published.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+  </span>
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Put your work online and commit to your Git repository when you are done. As with Problem set 3, you should give us access to an administrator account so we can see your document workflow in action.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    The username and password for the admin account can be accessed by Professor Matt and TA Kiran with the link below:<br>
+    <a href="https://docs.google.com/document/d/1Q-BeHWDwlq8h4uKbRjCvlynTEbX1Ksh5LUA-6Aobc9Y/edit?usp=sharing">
+      Creds Link
+    </a>
+  </span>
+</div>
+

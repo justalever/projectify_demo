@@ -1,0 +1,68 @@
+<% if !user_signed_in? %>
+  <%= render 'home' %>
+  flash[:alert] = "If you are an Admin, Log In to see Admin Panel!"
+<% else %>
+
+    <div class="table-container">
+  <table class="table">
+      <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Registration Date</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @users.all.each do |user| %>
+        <tr>
+          <td><%= h user.username %></td>
+          <td><%= h user.email %></td>
+          <td><%= h user.name %></td>
+          <td><%= h user.created_at %></td>
+
+          <% if user.is_active? %>
+            <td style="color: green">Active User</td>
+            <% else %>
+            <td style="color: red">Banned User</td>
+          <% end %>
+
+          <% if user.is_active? %>
+            <td>
+                <b style="color: white">
+
+                  <a id=user.id class="button is-danger" onclick="document.getElementById('id')"
+                  <%= link_to "Ban", controller: :hello, :action => :admin_panel, :uid => user.id %>
+
+                </b>
+            </td>
+          <% else %>
+            <td>
+                <b style="color: white">
+
+                  <a id=user.id class="button is-success" onclick="document.getElementById('id')"
+                  <%= link_to "Activate", controller: :hello, :action => :admin_panel, :uid => user.id %>
+
+                </b>
+
+            </td>
+          <% end %>
+
+      <% end %>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h5><b>Number of New Users/Day</b></h5>
+  <%= line_chart User.group_by_day(:created_at).count %>
+  <h5><b>Number of Users/Team</b></h5>
+  <%= pie_chart User.group(:team_id).count %>
+
+  <b style="font-size: xx-large">
+    <a href="https://mega.nz/file/90ljwaJS#bNB2OwR3VbiJA3kw6n8QSBzCMv_V57OQV9HKIokBfMk"><b>Database Dump</b></a>
+  </b>
+<% end %>

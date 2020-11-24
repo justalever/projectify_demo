@@ -1,0 +1,19 @@
+</br>
+<h2>Search Results:</h2>
+</br>
+<%= form_tag quotations_search_path, :method => "get" do %>
+	<%= label_tag(:search, "Search Quote") %>
+	<%= text_field_tag :search, params[:search] %>
+	<%= submit_tag("Search", name: nil) %>
+<% end %>
+</br>
+<h3>Quotations</h3>
+<ul>
+	<% for quotation in @quotations %>
+		<li><%= h quotation.author_name %>: <%= h quotation.quote %></li>
+	<% end %>
+</ul>
+
+<a href="/quotations" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Go Back to Quotations Page</a>
+
+</br>

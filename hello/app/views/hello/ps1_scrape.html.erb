@@ -1,0 +1,23 @@
+<h1>Scraping Fox News and CNN's Main Headlines and its Image</h1>
+</br>
+
+<p>Using Nokogiri, the HTML was parsed and using the full Xpath, the CSS selector element was identified to extract a particular attribute like text or img. The function was deployed in controller file and is rendered on this page.</p>
+
+<b><h3>Fox News:</h3></b>
+</br>
+
+<b><%= @headline1 %></b>
+<a href = <%= @headurl_1 %>>Link to Fox Article</a>
+</br>
+<img src= <%= @img_url1 %> style="width:650px;height:600px;"></img>
+
+</br>
+</br>
+
+<h3>NDTV India News:</h3>
+</br>
+
+<b><%= @headline2 %></b>
+<a href = <%= @headurl_2 %>>Link to NDTV Article</a>
+</br>
+<img src= <%= @img_url2 %> style="width:650px;height:600px;"></img>

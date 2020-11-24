@@ -1,0 +1,359 @@
+<head>
+  <style>
+      .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          max-width: 300px;
+          margin: auto;
+          text-align: center;
+          font-family: arial;
+      }
+
+      .title {
+          color: grey;
+          font-size: 18px;
+      }
+
+      button {
+          border: none;
+          outline: 0;
+          display: inline-block;
+          padding: 8px;
+          color: white;
+          background-color: #000;
+          text-align: center;
+          cursor: pointer;
+          width: 100%;
+          font-size: 18px;
+      }
+
+      a {
+          text-decoration: none;
+          font-size: 22px;
+          color: black;
+      }
+
+      button:hover, a:hover {
+          opacity: 0.7;
+      }
+  </style>
+</head>
+
+
+<div class="alert alert-primary" role="alert">
+  <b> Set up an issue tracker for your team. Redmine is one choice.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    <a href="/redmine">Redmine</a> is used as the issue tracker.
+  </span>
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>All social Web applications have users, content, and some kind of user-to-content map. Specify what
+    kind of information each of these areas will have in your application.</b>
+</div>
+
+<div class="alert alert-success" role="alert" style="color: black">
+    There are mainly two kinds of users in the application:
+    <ul class="bullets">
+      <li>Admin</li>
+      <li>Projectify User</li>
+    </ul>
+    <br>
+    The following actions can be performed by each of them:
+    <br>
+
+    <b><u>Admin:</u></b>
+    <ul class="bullets">
+      <li>Ban/Activate users</li>
+      <li>Manage</li>
+    </ul>
+    <br>
+    <b><u>Projectify User</u></b>
+    A Projectify user who creates a team is a team leader. To sub-categorize the Projectify user:
+    <br>
+    Projectify User can:
+    <ul class="bullets">
+      <li>Create a Project</li>
+      <li>Create a Team</li>
+      <li>Time a task</li>
+      <u>A Team Leader can:</u>
+      <ul class="bullets">
+        <li>Add members</li>
+        <li>Delete members</li>
+        <li>Edit Team members' info</li>
+      </ul>
+      <li>Update Activity/Progress</li>
+      <li>View Activities/Progress</li>
+    </ul>
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Learn how to avoid SQL injection and XSS attacks in your development framework and document and
+    follow your plan for the rest of the project.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    <b><u>SQL Injections:</u></b>
+    <br>
+    Considering a query that retrieves a project for a user entered keyword which is passed
+    as a parameter, and the controller or model retrieves the projects through:
+    <br>
+    <code>Project.where("name = '#{params[:name]}'")</code>
+    <br>
+    A malicious user can enter ' OR 1--, which will result in the query:
+    <br>
+    <code>SELECT * FROM projects WHERE name = '' OR 1--'</code>
+    <br>
+    This returns all records from the projects table as the true condition is specified in the query.
+    <br>
+    <b><u>SQLi Mitigation:</u></b>
+    <br>
+    We can parameterize SQL query which reduces the risk of an injection.
+    <br>
+    Rails already has a built-in filter for special SQL characters which escapes them.
+    Using Model.find(id) or Model.find_by_something(something) automatically applies this filter.
+    <br>
+    <b><u>Cross-Site Scripting</u></b>
+    <br>
+    Any field that accepts user input can be a potential attack vector. A malicious user can inject
+    malicious code that executes on client side and cause potential damage like:
+    Cookie Theft, Defacement, etc.
+    <br>
+    A simple XSS attack looks like this:
+    <br>
+    <code>&ltscript>alert('XSSed');&lt/script></code>
+    <br>
+
+    <b><u>XSS Mitigation:</u></b>
+    It is always important to sanitize user input. It is good to black list some terms and tags
+    being inputted by user but a black list is never complete. It is important to filer all the
+    characters and escape the content using escapeHTML()
+    <br>
+    Rails also has a sanitize() function that can detect obfuscation and encoding injections.
+    <br>
+    Another way is to implement a web firewall that contains a popular blacklist and detects
+    popular and even complex obfuscated, encoded XSS and injection attempts.
+
+  </span>
+</div>
+
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Audit your software for any sensitive data like database passwords make sure they are secure. Document
+    the result of your audit and plan.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    Devise Gem is being used for authentication which by default uses Bcrypt to store
+    information. Bcrypt hashes the password and salts it to make it harder to crack.
+    <br>
+    Next, I would also like to install the divise-security gem to provide additional security
+    to the application such as expirable password, etc.
+    <br>
+    The application's public directories have been checked to ensure no sensitive information
+    is available on the public domain.
+    <br>
+    The database files are hidden and can only be accessed by authorized users on the server only.
+    <br>
+
+  </span>
+</div>
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Define your user data model.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    <div class="table-container">
+      <table class="table is-bordered">
+        <thead>
+        <tr>
+          <th>Attributes</th>
+          <th>Data Type</th>
+          <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td>string</td>
+            <td>Name of user</td>
+          </tr>
+        <tr>
+            <td>Username</td>
+            <td>string (unique)</td>
+            <td>Username of user</td>
+          </tr>
+        <tr>
+            <td>Email</td>
+            <td>string (unique)</td>
+            <td>Email of user</td>
+          </tr>
+        <tr>
+            <td>Password</td>
+            <td>string</td>
+            <td>Password of user</td>
+          </tr>
+        <tr>
+            <td>is_admin</td>
+            <td>boolean</td>
+            <td>Default is False. This is set by the an authorized user who has access to database and can update the database</td>
+          </tr>
+        <tr>
+            <td>is_active</td>
+            <td>boolean</td>
+            <td>Default is True. This is set by the admin through the Admin Panel to Ban or Activate users. A False value (Ban) will disallow users from login</td>
+          </tr>
+        <tr>
+            <td>team_id</td>
+            <td>integer</td>
+            <td>Default is null. This is set when a user is assigned to a team in the Projectify Application.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </span>
+</div>
+
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Sketch your user registration and management page flow.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    <center>
+      <%= image_tag("/images/user_reg.png") %>
+    </center>
+    <br>
+    <br>
+    <br>
+    <b>Note: In the below user management flow, it is assumed that a user who is not admin will be redirected to root_path if
+      they try to visit Admin Panel (assuming they somehow know the link to the Admin Panel)
+      and will be displayed a warning message.
+    </b>
+    <br>
+    <br>
+    <center>
+      <%= image_tag("/images/user_mgmt.png") %>
+    </center>
+
+
+  </span>
+</div>
+
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Using the techniques of test-first and behavior-driven development we’ve studied in class and lab,
+    build up the basic user registration and login pages. Set up SSL for the login page to prevent password
+    sniffing, and set up SSL for all authenticated interaction if session hijacking is a concern.
+  <br>
+    Again using BDD, build the user administration pages. Make sure admin can 1) see recently registered
+    users, 2) ban a user, and 3) see statistics on user registrations.
+  </b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    <b><u>BDD Tests Performed:</u></b>
+
+    <center><%= image_tag("/images/bdd_test.png") %></center>
+
+    <br>
+    <b><u>Admin Panel:</u></b><br>
+    <center><%= image_tag("/images/admin_panel.png") %></center>
+  </span>
+
+</div>
+
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Use your issue tracker and CI server to their full potential. Start an issue in the issue tracker before
+    you begin any work. Get email notification of broken builds running, and get the CI server to report
+    test coverage and code quality metrics.
+  </b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    <b><u>Email Notification:</u></b>
+    <center><%= image_tag("/images/issue_tracker.png") %></center>
+
+
+  </span>
+</div>
+
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Check your model for referential integrity and queries that take a long time and might require further
+    optimization.
+  </b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    The referential integrity (relationship between tables) of the model is maintained by rails active record.
+    This is done with the help of foreign key constraints and validations such as "validates :foreign_key, uniqueness: true"
+    is one way in which models enforce data integrity.
+
+  </span>
+</div>
+
+
+
+
+<div class="alert alert-primary" role="alert">
+  <b>Put your work online and push to your Git repo when you are done. Your site should now contain an
+    index pointing to your “Basics” solutions and the “Documentation” for your site. We should also be
+    able to see that your code and documentation have been checked in to git. Please also provide a link
+    to your latest database dump somewhere on your site so that we can see that you’ve done the data
+    definitions for user registration and management.</b>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <span style="color: black">
+    <b>Use the below links to get access to admin account of this server to access the Database dumps.
+      </br> Note: The credentials document can only be accessed by Professor and TA.
+    </b>
+    </br>
+    <a href="<%= new_user_session_path %>sign_in">Admin Sign-In</a>
+    </br>
+    <a href="https://docs.google.com/document/d/1Q-BeHWDwlq8h4uKbRjCvlynTEbX1Ksh5LUA-6Aobc9Y/edit?usp=sharing">
+      Creds Link
+    </a>
+    </br>
+    Find the Database Dump at the bottom of the "Admin Panel" page after logging in as Admin.
+
+  </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+

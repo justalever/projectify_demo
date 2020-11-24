@@ -1,0 +1,115 @@
+<h3>Quotations</h3>
+
+
+<%= form_tag quotations_search_path, :method => "get" do %>
+	<%= label_tag(:search, "Search Quote") %>
+	<%= text_field_tag :search, params[:search] %>
+	<%= submit_tag("Search", name: nil) %>
+<% end %>
+
+</br>
+
+<% if cookies[:qno] != "" or cookies[:qno] != nil %>
+     <td><%= link_to "Erase My Personalization", :action => :quotations, :erase => 1 %></td>
+<% end %>
+
+
+</br>
+<td><%= link_to "Export to XML", quotations_path+".xml" %></td>
+</br>
+<td><%= link_to "Export to JSON", quotations_path+".json" %></td>
+</br>
+
+
+<%= form_tag quotations_path, :method => "get" do %>
+	<%= text_field_tag :xml_url %>
+	<%= submit_tag("Import XML", name: nil) %>
+<% end %>
+
+
+</br>
+</br>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Author</th>
+      <th scope="col">Quote</th>
+      <th scope="col">Category</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  	<% for quotation in @quotations %>
+		
+	    <tr>
+	      <td><%= h quotation.author_name %></td>
+	      <td><%= h quotation.quote %></td>
+	      <td><%= h quotation.category %></td>
+	      <td><%= link_to "Delete", :action => :quotations, :qno => quotation.id %></td>
+	    </tr>
+
+    <% end %>
+
+  </tbody>
+</table>
+
+
+<br/>
+
+<%= cookies[:qno] %>
+
+<% if params[:sort_by] == "date" %>
+	<%= link_to "Sort by category", :action => :quotations, :sort_by => :category %>
+<% else %>
+	<%= link_to "Sort by date", :action => :quotations, :sort_by => :date %>
+<% end %>
+
+<hr/>
+
+
+
+
+
+
+<h3>New quotation</h3>
+
+<%= form_for @quotation, :url => { :action => :quotations } do |form| %>
+	<% @quotation.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+	<% end %>
+
+<fieldset>
+	<legend>Enter details</legend>
+	
+	<div class="form_row">
+		<%= form.label :author_name %>
+		<%= form.text_field :author_name, :size => 20, :maxlength => 40 %>
+	</div>
+	
+		<div class ="form_row">
+			<%= form.label :category %>
+			<%= form.select :category, Quotation.all.collect {|q| q.category }.uniq %>
+		</div>
+
+
+	<div class="form_row">
+		<%= form.label :newcategory %>
+		<%= text_field :newcategory, :id %>
+	</div>
+
+
+	<div class="form_row">
+		<%= form.label :quote %>
+		<%= form.text_area :quote, :rows => 2, :cols => 40, :maxlength => 500 %>
+	</div>
+
+</fieldset>
+
+<p>
+<div class="form_row">
+	<%= form.submit 'Create' %>
+</div>
+</p>
+
+<% end %>
